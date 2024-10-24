@@ -33,6 +33,7 @@ module AvaTax
     include AvaTax::Client::Utilities
     include AvaTax::Client::ShippingVerification
     include AvaTax::Client::AgeVerification
+    include AvaTax::Client::ECommerceToken
     include AvaTax::Client::MultiDocument
   end
 end

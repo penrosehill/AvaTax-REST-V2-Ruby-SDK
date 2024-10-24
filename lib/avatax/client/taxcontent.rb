@@ -31,13 +31,13 @@ module AvaTax
       #
       # ### Security Policies
       #
-      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       # * This API depends on the following active services:*Required* (all): AvaTaxPro.
       # Swagger Name: AvaTaxClient	  
       # @param model [Object] Parameters about the desired file format and report format, specifying which company, locations and TaxCodes to include.
       # @return [Object]
       def build_tax_content_file(model)        path = "/api/v2/pointofsaledata/build"
-        post(path, model, {}, "22.2.1")      end
+        post(path, model, {}, AvaTax::VERSION)      end
 
       # Build a tax content file for a single location
       #
@@ -67,7 +67,7 @@ module AvaTax
       #
       # ### Security Policies
       #
-      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       # * This API depends on the following active services:*Required* (all): AvaTaxPro.
       # Swagger Name: AvaTaxClient	  
       # @param companyId [Integer] The ID number of the company that owns this location.
@@ -78,7 +78,7 @@ module AvaTax
       # @param includeJurisCodes [Boolean] When true, the file will include jurisdiction codes in the result.
       # @return [Object]
       def build_tax_content_file_for_location(companyId, id, options={})        path = "/api/v2/companies/#{companyId}/locations/#{id}/pointofsaledata"
-        get(path, options, "22.2.1")      end
+        get(path, options, AvaTax::VERSION)      end
 
       # Download a file listing tax rates by postal code
       #
@@ -125,13 +125,13 @@ module AvaTax
       #
       # ### Security Policies
       #
-      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       # Swagger Name: AvaTaxClient	  
       # @param date [DateTime] The date for which point-of-sale data would be calculated (today by default). Example input: 2016-12-31
       # @param region [String] A two character region code which limits results to a specific region.
       # @return [Object]
       def download_tax_rates_by_zip_code(date, options={})        path = "/api/v2/taxratesbyzipcode/download/#{date}"
-        get(path, options, "22.2.1")      end
+        get(path, options, AvaTax::VERSION)      end
 
       # Sales tax rates for a specified address
       #
@@ -141,8 +141,10 @@ module AvaTax
       # This API assumes that you are selling general tangible personal property at a retail point-of-sale
       # location in the United States only.
       #
-      # For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
-      # which supports features including, but not limited to:
+      # Please be advised that this endpoint is designed for approximate tax rate estimation only and
+      # may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the
+      # `CreateTransaction` API, which offers a variety of advanced features including, but not limited
+      # to:
       #
       # * Nexus declarations
       # * Taxability based on product/service type
@@ -165,7 +167,7 @@ module AvaTax
       # @param country [String] Name or ISO 3166 code identifying the country.     This field supports many different country identifiers:   * Two character ISO 3166 codes   * Three character ISO 3166 codes   * Fully spelled out names of the country in ISO supported languages   * Common alternative spellings for many countries     For a full list of all supported codes and names, please see the Definitions API `ListCountries`.
       # @return [Object]
       def tax_rates_by_address(options={})        path = "/api/v2/taxrates/byaddress"
-        get(path, options, "22.2.1")      end
+        get(path, options, AvaTax::VERSION)      end
 
       # Sales tax rates for a specified country and postal code. This API is only available for US postal codes.
       #
@@ -177,8 +179,10 @@ module AvaTax
       # This API assumes that you are selling general tangible personal property at a retail point-of-sale
       # location in the United States only.
       #
-      # For more powerful tax calculation, please consider upgrading to the `CreateTransaction` API,
-      # which supports features including, but not limited to:
+      # Please be advised that this endpoint is designed for approximate tax rate estimation only and
+      # may not yield precise results. For a more powerful and accurate tax estimation, upgrade to the
+      # `CreateTransaction` API, which offers a variety of advanced features including, but not limited
+      # to:
       #
       # * Nexus declarations
       # * Taxability based on product/service type
@@ -196,7 +200,7 @@ module AvaTax
       # @param postalCode [String] The postal code of the location.
       # @return [Object]
       def tax_rates_by_postal_code(options={})        path = "/api/v2/taxrates/bypostalcode"
-        get(path, options, "22.2.1")      end
+        get(path, options, AvaTax::VERSION)      end
     end
   end
 end

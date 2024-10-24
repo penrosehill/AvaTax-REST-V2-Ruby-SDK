@@ -1,5 +1,6 @@
 require File.expand_path('../../lib/avatax', __FILE__)
 require 'rspec'
+require 'active_support'
 require 'yaml'
 
 
@@ -16,7 +17,7 @@ AvaTax.configure do |config|
   end
 end
 
-client = AvaTax::Client.new()
+client = AvaTax::Client.new({ :logger => true, :log_request_and_response_info => true })
 companies = client.query_companies
 
 RSpec.configure do |config|

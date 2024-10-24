@@ -22,23 +22,23 @@ module AvaTax
       #
       # ### Security Policies
       #
-      # * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      # * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       # * This API is available by invitation only.
       # * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
       # Swagger Name: AvaTaxClient	  
       # @param model [Object] Information about the account you wish to create and the selected product offerings.
       # @return [Object]
       def request_new_account(model)        path = "/api/v2/accounts/request"
-        post(path, model, {}, "22.2.1")      end
+        post(path, model, {}, AvaTax::VERSION)      end
 
       # Request a new entitilement to an existing customer
       #
-      # This API is for use by partner provisioning services customers only. This will allow the partners to allow
-      # the add new entitlement to an existing customer
+      # This API is for use by partner provisioning services customers only. This allows the partners to add
+      # new entitlements to an existing customer.
       #
       # ### Security Policies
       #
-      # * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      # * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       # * This API is available by invitation only.
       # * This API is available by invitation only. To request access to this feature, please speak to a business development manager and request access to [Provisioning:RequestNewAccount].
       # Swagger Name: AvaTaxClient	  
@@ -46,7 +46,7 @@ module AvaTax
       # @param offer [String] The offer to be added to an already existing customer
       # @return [Object]
       def request_new_entitlement(id, offer)        path = "/api/v2/accounts/#{id}/entitlements/#{offer}"
-        post(path, {}, "22.2.1")      end
+        post(path, {}, {}, AvaTax::VERSION)      end
     end
   end
 end

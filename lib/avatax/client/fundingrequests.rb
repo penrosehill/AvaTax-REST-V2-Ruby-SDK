@@ -20,13 +20,15 @@ module AvaTax
       #
       # ### Security Policies
       #
-      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
+      # * This API requires one of the following user roles: AccountAdmin, AccountOperator, AccountUser, BatchServiceAdmin, CompanyAdmin, CompanyUser, Compliance Root User, ComplianceAdmin, ComplianceUser, CSPAdmin, CSPTester, ECMAccountUser, ECMCompanyUser, FirmAdmin, FirmUser, ProStoresOperator, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin, TechnicalSupportUser, TreasuryAdmin, TreasuryUser.
       # * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
       # Swagger Name: AvaTaxClient	  
       # @param id [Integer] The unique ID number of this funding request
+      # @param businessUnit [String] The company's business unit (See POABusinessUnit::* for a list of allowable values)
+      # @param subscriptionType [String] The company's subscription type (See POASubscriptionType::* for a list of allowable values)
       # @return [Object]
-      def activate_funding_request(id)        path = "/api/v2/fundingrequests/#{id}/widget"
-        get(path, {}, "22.2.1")      end
+      def activate_funding_request(id, options={})        path = "/api/v2/fundingrequests/#{id}/widget"
+        get(path, options, AvaTax::VERSION)      end
 
       # Retrieve status about a funding setup request
       #
@@ -43,13 +45,15 @@ module AvaTax
       #
       # ### Security Policies
       #
-      # * This API requires one of the following user roles: AccountAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
+      # * This API requires one of the following user roles: AccountAdmin, BatchServiceAdmin, CompanyAdmin, CSPTester, FirmAdmin, Registrar, SiteAdmin, SSTAdmin, SystemAdmin, TechnicalSupportAdmin.
       # * This API depends on the following active services:*Returns* (at least one of): Mrs, MRSComplianceManager, AvaTaxCsp.*Firm Managed* (for accounts managed by a firm): ARA, ARAManaged.
       # Swagger Name: AvaTaxClient	  
       # @param id [Integer] The unique ID number of this funding request
+      # @param businessUnit [String] The company's business unit (See POABusinessUnit::* for a list of allowable values)
+      # @param subscriptionType [String] The company's subscription type (See POASubscriptionType::* for a list of allowable values)
       # @return [Object]
-      def funding_request_status(id)        path = "/api/v2/fundingrequests/#{id}"
-        get(path, {}, "22.2.1")      end
+      def funding_request_status(id, options={})        path = "/api/v2/fundingrequests/#{id}"
+        get(path, options, AvaTax::VERSION)      end
     end
   end
 end
